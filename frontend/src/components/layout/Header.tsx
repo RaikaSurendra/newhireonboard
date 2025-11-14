@@ -46,30 +46,65 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, user }) => {
   };
 
   return (
-    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+    <AppBar 
+      position="fixed" 
+      sx={{ 
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+        background: 'linear-gradient(90deg, #7B3FF2 0%, #9B6BF2 100%)',
+        boxShadow: '0 2px 8px rgba(123, 63, 242, 0.2)',
+      }}
+    >
       <Toolbar>
         <IconButton
           color="inherit"
           edge="start"
           onClick={onMenuClick}
-          sx={{ mr: 2 }}
+          sx={{ mr: 2, display: { sm: 'none' } }}
         >
           <MenuIcon />
         </IconButton>
 
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 700 }}>
-          🚀 Onboard Buddy
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Box sx={{ 
+            width: 32, 
+            height: 32, 
+            borderRadius: '6px', 
+            bgcolor: 'rgba(255,255,255,0.2)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 700,
+            fontSize: '0.9rem'
+          }}>
+            OB
+          </Box>
+          Onboard Buddy
         </Typography>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <IconButton color="inherit">
+          <IconButton 
+            color="inherit"
+            sx={{ 
+              '&:hover': { 
+                bgcolor: 'rgba(255,255,255,0.1)' 
+              } 
+            }}
+          >
             <Badge badgeContent={3} color="error">
               <NotificationsIcon />
             </Badge>
           </IconButton>
 
-          <IconButton onClick={handleMenu} color="inherit">
-            <Avatar sx={{ width: 32, height: 32, bgcolor: 'secondary.main' }}>
+          <IconButton 
+            onClick={handleMenu} 
+            color="inherit"
+            sx={{ 
+              '&:hover': { 
+                bgcolor: 'rgba(255,255,255,0.1)' 
+              } 
+            }}
+          >
+            <Avatar sx={{ width: 32, height: 32, bgcolor: 'rgba(255,255,255,0.3)', color: '#7B3FF2', fontWeight: 600 }}>
               {user?.name?.charAt(0) || 'U'}
             </Avatar>
           </IconButton>

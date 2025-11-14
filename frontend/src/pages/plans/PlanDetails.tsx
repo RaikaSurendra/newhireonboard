@@ -43,8 +43,8 @@ const PlanDetails: React.FC = () => {
       console.log('Templates response:', templatesResponse);
       
       // Backend returns { success: true, data: {...} } or { success: true, data: [...] }
-      setPlan(planResponse?.data?.data || planResponse?.data || null);
-      const templatesData = templatesResponse?.data?.data || templatesResponse?.data || [];
+      setPlan((planResponse as any)?.data?.data || (planResponse as any)?.data || null);
+      const templatesData = (templatesResponse as any)?.data?.data || (templatesResponse as any)?.data || [];
       setTemplates(Array.isArray(templatesData) ? templatesData : []);
     } catch (error) {
       console.error('Failed to load plan details:', error);
@@ -165,7 +165,7 @@ const PlanDetails: React.FC = () => {
       {/* Task Templates */}
       <Card
         title="Task Templates"
-        actions={
+        action={
           <Button
             variant="contained"
             startIcon={<Add />}

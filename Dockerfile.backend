@@ -12,13 +12,13 @@ COPY backend/src ./src
 RUN mvn clean package -DskipTests
 
 # Runtime stage
-FROM eclipse-temurin:11-jre-alpine
+FROM eclipse-temurin:11-jre
 
 WORKDIR /app
 
 # Create non-root user
-RUN addgroup -g 1001 appuser && \
-    adduser -D -u 1001 -G appuser appuser
+RUN groupadd -g 1001 appuser && \
+    useradd -r -u 1001 -g appuser appuser
 
 # Copy JAR from builder
 COPY --from=builder /app/target/onboard-buddy-1.0.0.jar ./app.jar
@@ -33,6 +33,6 @@ EXPOSE 8080
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/api/health || exit 1
+  CMD curl -f http://localhost:8080/api/health || exit 1
 
 ENTRYPOINT ["java", "-jar", "app.jar"]

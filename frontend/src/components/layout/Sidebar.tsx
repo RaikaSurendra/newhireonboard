@@ -6,7 +6,6 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Toolbar,
   Divider,
   Box,
   Typography,
@@ -64,38 +63,70 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, userRole }) => {
         '& .MuiDrawer-paper': {
           width: DRAWER_WIDTH,
           boxSizing: 'border-box',
+          background: 'linear-gradient(180deg, #7B3FF2 0%, #5E2BC4 100%)',
+          color: 'white',
+          borderRight: 'none',
         },
       }}
     >
-      <Toolbar />
-      <Box sx={{ overflow: 'auto', mt: 2 }}>
+      <Box sx={{ p: 3, display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Box sx={{ 
+          width: 40, 
+          height: 40, 
+          borderRadius: '8px', 
+          bgcolor: 'rgba(255,255,255,0.2)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontWeight: 700,
+          fontSize: '1.2rem'
+        }}>
+          OB
+        </Box>
+        <Typography variant="h6" sx={{ fontWeight: 700, color: 'white' }}>
+          OnboardBuddy
+        </Typography>
+      </Box>
+      <Box sx={{ overflow: 'auto', mt: 1, px: 2 }}>
         <List>
           {filteredMenuItems.map((item) => (
-            <ListItem key={item.path} disablePadding>
+            <ListItem key={item.path} disablePadding sx={{ mb: 0.5 }}>
               <ListItemButton
                 selected={location.pathname === item.path}
                 onClick={() => handleNavigation(item.path)}
                 sx={{
+                  borderRadius: '8px',
+                  color: 'rgba(255,255,255,0.8)',
+                  '&:hover': {
+                    backgroundColor: 'rgba(255,255,255,0.1)',
+                    color: 'white',
+                  },
                   '&.Mui-selected': {
-                    backgroundColor: 'primary.light',
-                    color: 'primary.contrastText',
+                    backgroundColor: 'rgba(255,255,255,0.2)',
+                    color: 'white',
                     '&:hover': {
-                      backgroundColor: 'primary.main',
+                      backgroundColor: 'rgba(255,255,255,0.25)',
                     },
                   },
                 }}
               >
-                <ListItemIcon>
+                <ListItemIcon sx={{ color: 'inherit', minWidth: 40 }}>
                   <Typography fontSize="1.5rem">{item.icon}</Typography>
                 </ListItemIcon>
-                <ListItemText primary={item.text} />
+                <ListItemText 
+                  primary={item.text} 
+                  primaryTypographyProps={{
+                    fontSize: '0.95rem',
+                    fontWeight: 500,
+                  }}
+                />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
-        <Divider sx={{ my: 2 }} />
+        <Divider sx={{ my: 2, borderColor: 'rgba(255,255,255,0.1)' }} />
         <Box sx={{ px: 2 }}>
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.5)' }}>
             Version 1.0.0
           </Typography>
         </Box>

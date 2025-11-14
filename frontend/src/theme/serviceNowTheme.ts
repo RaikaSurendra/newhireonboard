@@ -33,35 +33,35 @@ export const serviceNowTheme = createTheme({
       paper: '#FFFFFF',
     },
     text: {
-      primary: '#161616',
-      secondary: '#525252',
+      primary: '#2D2D2D',
+      secondary: '#6B6B6B',
     },
   },
   typography: {
-    fontFamily: '"Gilroy", "Inter", "Helvetica Neue", Arial, sans-serif',
+    fontFamily: '"Gilroy", "Inter", "Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
-      fontSize: '2.5rem',
       fontWeight: 700,
+      fontSize: '2.5rem',
     },
     h2: {
+      fontWeight: 700,
       fontSize: '2rem',
-      fontWeight: 600,
     },
     h3: {
-      fontSize: '1.75rem',
       fontWeight: 600,
+      fontSize: '1.75rem',
     },
     h4: {
-      fontSize: '1.5rem',
       fontWeight: 600,
+      fontSize: '1.5rem',
     },
     h5: {
+      fontWeight: 600,
       fontSize: '1.25rem',
-      fontWeight: 500,
     },
     h6: {
+      fontWeight: 600,
       fontSize: '1rem',
-      fontWeight: 500,
     },
     body1: {
       fontSize: '1rem',
@@ -79,7 +79,7 @@ export const serviceNowTheme = createTheme({
     },
   },
   shape: {
-    borderRadius: 4,
+    borderRadius: 12,
   },
   components: {
     MuiButton: {
@@ -87,14 +87,35 @@ export const serviceNowTheme = createTheme({
         root: {
           textTransform: 'none',
           fontWeight: 600,
-          padding: '8px 16px',
+          borderRadius: '8px',
+          padding: '10px 24px',
+        },
+        contained: {
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: '0 4px 12px rgba(123, 63, 242, 0.3)',
+          },
         },
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          boxShadow: '0 1px 3px rgba(0,0,0,0.12)',
+          boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
+          borderRadius: '12px',
+          transition: 'transform 0.2s, box-shadow 0.2s',
+          '&:hover': {
+            transform: 'translateY(-2px)',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.12)',
+          },
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: '8px',
+          fontWeight: 500,
         },
       },
     },
@@ -103,7 +124,7 @@ export const serviceNowTheme = createTheme({
         root: {
           '& .MuiOutlinedInput-root': {
             '&:hover fieldset': {
-              borderColor: '#0F62FE',
+              borderColor: '#7B3FF2',
             },
           },
         },

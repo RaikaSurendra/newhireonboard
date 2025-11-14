@@ -44,24 +44,43 @@ const Dashboard: React.FC = () => {
     return <Loader message="Loading dashboard..." />;
   }
 
+  const userName = JSON.parse(localStorage.getItem('user') || '{}')?.name || 'User';
+
   return (
     <Box>
-      <Typography variant="h4" fontWeight={700} gutterBottom>
-        Dashboard
-      </Typography>
-      <Typography variant="body2" color="text.secondary" mb={3}>
-        Welcome back! Here's your onboarding progress
-      </Typography>
+      <Box mb={4}>
+        <Typography variant="h3" fontWeight={700} gutterBottom sx={{ color: '#2D2D2D' }}>
+          Hello, <span style={{ color: '#7B3FF2' }}>{userName.split(' ')[0]}</span>!
+        </Typography>
+        <Typography variant="h6" color="text.secondary" fontWeight={400}>
+          What can we help you find today?
+        </Typography>
+      </Box>
 
       <Grid container spacing={3}>
-        {/* Stats Cards */}
+        {/* Stats Cards with Icons */}
         <Grid item xs={12} sm={6} md={3}>
           <Card>
-            <Box textAlign="center">
+            <Box textAlign="center" py={2}>
+              <Box 
+                sx={{ 
+                  width: 60, 
+                  height: 60, 
+                  borderRadius: '12px', 
+                  background: 'linear-gradient(135deg, #7B3FF2 0%, #9B6BF2 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 16px',
+                  fontSize: '2rem'
+                }}
+              >
+                📋
+              </Box>
               <Typography variant="h3" color="primary" fontWeight={700}>
                 {stats.totalTasks}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary" fontWeight={500}>
                 Total Tasks
               </Typography>
             </Box>
@@ -70,11 +89,26 @@ const Dashboard: React.FC = () => {
 
         <Grid item xs={12} sm={6} md={3}>
           <Card>
-            <Box textAlign="center">
+            <Box textAlign="center" py={2}>
+              <Box 
+                sx={{ 
+                  width: 60, 
+                  height: 60, 
+                  borderRadius: '12px', 
+                  background: 'linear-gradient(135deg, #24A148 0%, #3BC969 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 16px',
+                  fontSize: '2rem'
+                }}
+              >
+                ✅
+              </Box>
               <Typography variant="h3" color="success.main" fontWeight={700}>
                 {stats.completedTasks}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary" fontWeight={500}>
                 Completed
               </Typography>
             </Box>
@@ -83,11 +117,26 @@ const Dashboard: React.FC = () => {
 
         <Grid item xs={12} sm={6} md={3}>
           <Card>
-            <Box textAlign="center">
+            <Box textAlign="center" py={2}>
+              <Box 
+                sx={{ 
+                  width: 60, 
+                  height: 60, 
+                  borderRadius: '12px', 
+                  background: 'linear-gradient(135deg, #FFB800 0%, #FFC933 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 16px',
+                  fontSize: '2rem'
+                }}
+              >
+                ⏳
+              </Box>
               <Typography variant="h3" color="warning.main" fontWeight={700}>
                 {stats.pendingTasks}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary" fontWeight={500}>
                 Pending
               </Typography>
             </Box>
@@ -96,11 +145,26 @@ const Dashboard: React.FC = () => {
 
         <Grid item xs={12} sm={6} md={3}>
           <Card>
-            <Box textAlign="center">
+            <Box textAlign="center" py={2}>
+              <Box 
+                sx={{ 
+                  width: 60, 
+                  height: 60, 
+                  borderRadius: '12px', 
+                  background: 'linear-gradient(135deg, #0F62FE 0%, #4589FF 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 16px',
+                  fontSize: '2rem'
+                }}
+              >
+                📅
+              </Box>
               <Typography variant="h3" color="info.main" fontWeight={700}>
                 {stats.upcomingTasks}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary" fontWeight={500}>
                 Upcoming
               </Typography>
             </Box>

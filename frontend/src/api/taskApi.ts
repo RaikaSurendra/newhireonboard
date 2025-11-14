@@ -55,10 +55,10 @@ export const taskApi = {
   createTemplate: (planId: number, data: CreateTaskTemplateRequest) =>
     apiClient.post(`/templates`, { ...data, planId }),
   
-  updateTemplate: (planId: number, templateId: number, data: Partial<CreateTaskTemplateRequest>) =>
+  updateTemplate: (_planId: number, templateId: number, data: Partial<CreateTaskTemplateRequest>) =>
     apiClient.put(`/templates/${templateId}`, data),
   
-  deleteTemplate: (planId: number, templateId: number) =>
+  deleteTemplate: (_planId: number, templateId: number) =>
     apiClient.delete(`/templates/${templateId}`),
   
   // Tasks

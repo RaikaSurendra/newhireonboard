@@ -47,7 +47,7 @@ const PlanCreate: React.FC = () => {
       const response = await planApi.create(formData);
       console.log('Create plan response:', response);
       // Backend returns { success: true, planId: X, message: "..." }
-      const planId = response?.data?.planId || response?.data?.data?.id;
+      const planId = (response as any)?.data?.planId || (response as any)?.data?.data?.id;
       if (planId) {
         // Navigate to task template creation page
         navigate(`/plans/${planId}/templates/create`);
