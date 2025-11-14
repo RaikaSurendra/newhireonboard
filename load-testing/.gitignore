@@ -1,0 +1,24 @@
+# Test Results
+results/
+*.json
+*.log
+
+# Node modules
+artillery/node_modules/
+artillery/package-lock.json
+
+# Gatling reports (already in backend/target)
+gatling/
+
+# Chaos Toolkit journals
+chaos/results/
+*.journal
+
+# Temporary files
+*.tmp
+*.pid
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db

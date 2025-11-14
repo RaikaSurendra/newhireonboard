@@ -1,0 +1,90 @@
+config:
+  target: "http://localhost:8080/api"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: "Warm up"
+    - duration: 120
+      arrivalRate: 20
+      name: "Sustained load"
+    - duration: 60
+      arrivalRate: 50
+      name: "Peak load"
+  payload:
+    path: "../data/users.csv"
+    fields:
+      - email
+      - password
+  defaults:
+    headers:
+      Content-Type: "application/json"
+  processor: "../processors/auth-processor.js"
+
+scenarios:
+  - name: "Authentication and User Operations"
+    flow:
+      - post:
+          url: "/auth/login"
+          json:
+            email: "{{ email }}"
+            password: "{{ password }}"
+          capture:
+            - json: "$.data.token"
+              as: "authToken"
+          expect:
+            - statusCode: 200
+      
+      - think: 2
+      
+      - get:
+          url: "/auth/me"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: 200
+      
+      - think: 1
+      
+      - get:
+          url: "/users"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: 200
+      
+      - think: 2
+      
+      - get:
+          url: "/plans"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: 200
+
+  - name: "Plan Management"
+    weight: 30
+    flow:
+      - post:
+          url: "/auth/login"
+          json:
+            email: "{{ email }}"
+            password: "{{ password }}"
+          capture:
+            - json: "$.data.token"
+              as: "authToken"
+      
+      - get:
+          url: "/plans/my-plans"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: 200
+      
+      - think: 1
+      
+      - get:
+          url: "/plans"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: 200

@@ -1,0 +1,89 @@
+config:
+  target: "http://localhost:8080/api"
+  phases:
+    - duration: 180
+      arrivalRate: 10
+      name: "Realistic user journey"
+  payload:
+    path: "../data/users.csv"
+    fields:
+      - email
+      - password
+  defaults:
+    headers:
+      Content-Type: "application/json"
+
+scenarios:
+  - name: "Complete Onboarding Journey"
+    flow:
+      # Login
+      - post:
+          url: "/auth/login"
+          json:
+            email: "{{ email }}"
+            password: "{{ password }}"
+          capture:
+            - json: "$.data.token"
+              as: "authToken"
+          expect:
+            - statusCode: 200
+      
+      - think: 3
+      
+      # View dashboard
+      - get:
+          url: "/auth/me"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: 200
+      
+      - think: 5
+      
+      # Check onboarding plans
+      - get:
+          url: "/plans/my-plans"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: 200
+      
+      - think: 4
+      
+      # View all plans
+      - get:
+          url: "/plans"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: 200
+      
+      - think: 3
+      
+      # View users (if admin/HR)
+      - get:
+          url: "/users"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: [200, 403]
+      
+      - think: 2
+      
+      # View buddy matches
+      - get:
+          url: "/buddies"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: [200, 404]
+      
+      - think: 5
+      
+      # Logout
+      - post:
+          url: "/auth/logout"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: 200

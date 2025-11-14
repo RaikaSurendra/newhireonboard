@@ -1,0 +1,52 @@
+config:
+  target: "http://localhost:8080/api"
+  phases:
+    # Normal load
+    - duration: 60
+      arrivalRate: 10
+      name: "Normal load"
+    # Spike 1
+    - duration: 10
+      arrivalRate: 100
+      name: "Spike 1"
+    # Recovery
+    - duration: 60
+      arrivalRate: 10
+      name: "Recovery 1"
+    # Spike 2 - Even larger
+    - duration: 10
+      arrivalRate: 200
+      name: "Spike 2"
+    # Final recovery
+    - duration: 60
+      arrivalRate: 5
+      name: "Final recovery"
+  payload:
+    path: "../data/users.csv"
+    fields:
+      - email
+      - password
+  defaults:
+    headers:
+      Content-Type: "application/json"
+
+scenarios:
+  - name: "Quick API Check"
+    flow:
+      - post:
+          url: "/auth/login"
+          json:
+            email: "{{ email }}"
+            password: "{{ password }}"
+          capture:
+            - json: "$.data.token"
+              as: "authToken"
+          expect:
+            - statusCode: 200
+      
+      - get:
+          url: "/users"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: [200, 500, 503]
