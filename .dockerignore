@@ -1,0 +1,57 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+docs/
+
+# IDE
+.vscode
+.idea
+*.iml
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+.npm
+
+# Maven
+target/
+*.jar
+*.war
+*.ear
+dependency-reduced-pom.xml
+
+# Build artifacts
+backend/target/
+frontend/dist/
+frontend/node_modules/
+
+# Logs
+*.log
+logs/
+/var/log/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+load-testing/
+*.test.js
+coverage/
+
+# Temporary
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*~
